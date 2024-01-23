@@ -1,28 +1,21 @@
 import {
+  CameraControls,
   Cloud,
-  OrbitControls,
   Sky,
   Sparkles,
   Stars,
-  Text,
   Text3D,
   useAnimations,
   useGLTF,
 } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
 
 import { useEffect, useRef } from "react";
 
 const Scene = () => {
-  const pigref = useRef(null);
   const { scene: randy, animations } = useGLTF(
     "https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/druid/model.gltf"
   );
-
-  const { scene: pig } = useGLTF(
-    "https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/skunk/model.gltf"
-  );
-
+  const camera = useRef(null);
   const { scene: jfc } = useGLTF(
     "https://d1bh4bdsrj0ehq.cloudfront.net/Worlds/world1.glb"
   );
@@ -33,13 +26,9 @@ const Scene = () => {
     randimations.actions.PortalOpen.play();
   }, []);
 
-  useFrame((state, delta) => {
-    pigref.current.rotation.y += delta * 0.4;
-  });
-
   return (
     <>
-      <OrbitControls />
+      <CameraControls ref={camera} />
 
       <directionalLight castShadow intensity={2} />
       <ambientLight />
@@ -59,17 +48,17 @@ const Scene = () => {
         Utes
         <meshNormalMaterial />
       </Text3D> */}
-      <primitive
+      {/* <primitive
         castShadow
         object={pig}
         position={[5, 0, 0]}
         scale={[0.5, 0.5, 0.5]}
         ref={pigref}
-      />
+      /> */}
       <primitive
         object={jfc}
         scale={[0.3, 0.3, 0.3]}
-        position={[0, -1, -0.9]}
+        position={[0, -1, -0.55]}
       />
     </>
   );
